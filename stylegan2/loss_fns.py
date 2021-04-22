@@ -165,6 +165,39 @@ def D_least_squares(G,
     reg = None
     return loss, reg
 
+#----------------------------------------------------------------------------
+# Hinge for Generation and Discrimination
+# Claudiu Gabriel Ivan, Mattia Galli, Edoardo Liberati
+
+def G_hinge(G,
+               D,
+               latents,
+               latent_labels=None,
+               *args,
+               **kwargs):
+    fake_scores = D(G(latents, labels=latent_labels), labels=latent_labels).float()
+    loss = - fake_scores.mean()
+    reg = None
+    return loss, reg
+    
+    
+def D_hinge(G,
+               D,
+               latents,
+               reals,
+               latent_labels=None,
+               real_labels=None,
+               *args,
+               **kwargs):
+    assert (latent_labels is None) == (real_labels is None)
+    with torch.no_grad():
+        fakes = G(latents, labels=latent_labels)
+    real_scores = D(reals, labels=real_labels).float()
+    fake_scores = D(fakes, labels=latent_labels).float()
+    loss = - torch.minimum(torch.tensor(0., dtype=torch.float, device=real_scores.device), real_scores - 1.).mean() \
+        - torch.minimum(torch.tensor(0., dtype=torch.float, device=fake_scores.device), - fake_scores - 1.).mean()
+    reg = None
+    return loss, reg
 
 #----------------------------------------------------------------------------
 # R1 and R2 regularizers from the paper
