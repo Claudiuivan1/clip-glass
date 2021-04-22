@@ -76,18 +76,6 @@ def G_logistic_ns(G,
     loss = F.binary_cross_entropy_with_logits(fake_scores, torch.ones_like(fake_scores))
     reg = None
     return loss, reg
-    
-    
-def G_wasserstein(G,
-               D,
-               latents,
-               latent_labels=None,
-               *args,
-               **kwargs):
-    fake_scores = D(G(latents, labels=latent_labels), labels=latent_labels).float()
-    loss = - fake_scores.mean()
-    reg = None
-    return loss, reg
 
 
 def D_logistic(G,
@@ -109,6 +97,21 @@ def D_logistic(G,
     reg = None
     return loss, reg
     
+#----------------------------------------------------------------------------
+# Wasserstein for Generation and Discrimination
+# Claudiu Gabriel Ivan, Mattia Galli, Edoardo Liberati
+
+def G_wasserstein(G,
+               D,
+               latents,
+               latent_labels=None,
+               *args,
+               **kwargs):
+    fake_scores = D(G(latents, labels=latent_labels), labels=latent_labels).float()
+    loss = - fake_scores.mean()
+    reg = None
+    return loss, reg
+    
     
 def D_wasserstein(G,
                D,
@@ -126,6 +129,39 @@ def D_wasserstein(G,
     real_loss = real_scores.mean()
     fake_loss = fake_scores.mean()
     loss = - real_loss + fake_loss
+    reg = None
+    return loss, reg
+    
+#----------------------------------------------------------------------------
+# Least Squares for Generation and Discrimination
+# Claudiu Gabriel Ivan, Mattia Galli, Edoardo Liberati
+
+def G_least_squares(G,
+               D,
+               latents,
+               latent_labels=None,
+               *args,
+               **kwargs):
+    fake_scores = D(G(latents, labels=latent_labels), labels=latent_labels).float()
+    loss = - 0.5 * (fake_scores -1).pow(2).mean()
+    reg = None
+    return loss, reg
+    
+    
+def D_least_squares(G,
+               D,
+               latents,
+               reals,
+               latent_labels=None,
+               real_labels=None,
+               *args,
+               **kwargs):
+    assert (latent_labels is None) == (real_labels is None)
+    with torch.no_grad():
+        fakes = G(latents, labels=latent_labels)
+    real_scores = D(reals, labels=real_labels).float()
+    fake_scores = D(fakes, labels=latent_labels).float()
+    loss = 0.5 * ((- real_scores - 1.).pow(2).mean() + fake_scores.pow(2).mean())
     reg = None
     return loss, reg
 

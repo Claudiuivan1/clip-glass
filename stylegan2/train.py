@@ -170,8 +170,8 @@ class Trainer:
                  device_batch_size=4,
                  label_size=0,
                  data_workers=4,
-                 G_loss='wasserstein', #'logistic_ns',
-                 D_loss='wasserstein', #'logistic',
+                 G_loss='least_squares', #'logistic_ns',
+                 D_loss='least_squares', #'logistic',
                  G_reg='pathreg:2',
                  G_reg_interval=4,
                  G_opt_class='Adam',
@@ -967,12 +967,14 @@ _LOSS_FNS = {
         'logistic': loss_fns.G_logistic,
         'logistic_ns': loss_fns.G_logistic_ns,
         'wgan': loss_fns.G_wgan,
-        'wasserstein': loss_fns.G_wasserstein
+        'wasserstein': loss_fns.G_wasserstein,
+        'least_squares': loss_fns.G_least_squares
     },
     'D': {
         'logistic': loss_fns.D_logistic,
         'wgan': loss_fns.D_wgan,
-        'wasserstein': loss_fns.D_wasserstein
+        'wasserstein': loss_fns.D_wasserstein,
+        'least_squares': loss_fns.D_least_squares
     }
 }
 def get_loss_fn(net, loss):
