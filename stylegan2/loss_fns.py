@@ -76,6 +76,18 @@ def G_logistic_ns(G,
     loss = F.binary_cross_entropy_with_logits(fake_scores, torch.ones_like(fake_scores))
     reg = None
     return loss, reg
+    
+    
+def G_wasserstein(G,
+               D,
+               latents,
+               latent_labels=None,
+               *args,
+               **kwargs):
+    fake_scores = D(G(latents, labels=latent_labels), labels=latent_labels).float()
+    loss = - fake_scores.mean()
+    reg = None
+    return loss, reg
 
 
 def D_logistic(G,
@@ -94,6 +106,26 @@ def D_logistic(G,
     real_loss = F.binary_cross_entropy_with_logits(real_scores, torch.ones_like(real_scores))
     fake_loss = F.binary_cross_entropy_with_logits(fake_scores, torch.zeros_like(fake_scores))
     loss = real_loss + fake_loss
+    reg = None
+    return loss, reg
+    
+    
+def D_wasserstein(G,
+               D,
+               latents,
+               reals,
+               latent_labels=None,
+               real_labels=None,
+               *args,
+               **kwargs):
+    assert (latent_labels is None) == (real_labels is None)
+    with torch.no_grad():
+        fakes = G(latents, labels=latent_labels)
+    real_scores = D(reals, labels=real_labels).float()
+    fake_scores = D(fakes, labels=latent_labels).float()
+    real_loss = real_scores.mean()
+    fake_loss = fake_scores.mean()
+    loss = - real_loss + fake_loss
     reg = None
     return loss, reg
 
