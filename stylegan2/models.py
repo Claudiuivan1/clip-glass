@@ -505,7 +505,7 @@ class _BaseParameterizedModel(_BaseModel):
     def __init__(self, **kwargs):
         super(_BaseParameterizedModel, self).__init__()
         self._update_default_kwargs(
-             activation='prelu',  #'lrelu:0.2',
+             activation='rrelu',  #'lrelu:0.2',
              lr_mul=1,
              weight_scale=True,
              eps=1e-8
