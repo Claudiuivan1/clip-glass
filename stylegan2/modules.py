@@ -41,6 +41,8 @@ def get_activation(activation):
         return nn.RReLU(), np.sqrt(2)
     elif activation in ['selu']:
         return nn.SELU(), 1.
+    elif activation in ['gelu']:
+        return nn.GELU(), 1.
     elif activation in ['softplus']:
         return nn.Softplus(), 1
     elif activation in ['softsign']:
