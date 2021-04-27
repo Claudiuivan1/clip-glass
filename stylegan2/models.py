@@ -2,6 +2,7 @@ import copy
 from collections import OrderedDict
 import numpy as np
 import torch
+import config
 from torch import nn
 
 from . import modules, utils
@@ -505,7 +506,7 @@ class _BaseParameterizedModel(_BaseModel):
     def __init__(self, **kwargs):
         super(_BaseParameterizedModel, self).__init__()
         self._update_default_kwargs(
-             activation='sigmoid',  #'lrelu:0.2',
+             activation=config.act-fun, #'sigmoid',  #'lrelu:0.2',
              lr_mul=1,
              weight_scale=True,
              eps=1e-8
