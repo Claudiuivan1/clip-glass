@@ -20,6 +20,7 @@ parser.add_argument("--generations", type=int, default=500)
 parser.add_argument("--save-each", type=int, default=50)
 parser.add_argument("--tmp-folder", type=str, default="./tmp")
 parser.add_argument("--target", type=str, default="a wolf at night with the moon in the background")
+parser.add_argument("--act-fun", type=str, default="rrelu")
 
 config = parser.parse_args()
 vars(config).update(get_config(config.config))
