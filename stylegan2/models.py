@@ -507,7 +507,7 @@ class _BaseParameterizedModel(_BaseModel):
         super(_BaseParameterizedModel, self).__init__()
         self._update_default_kwargs(
              g_activation='rrelu', #'lrelu:0.1', #config.act-fun, #'sigmoid', 
-             d_activation='lrelu:0.1', #config.act-fun, #'sigmoid', 
+             d_activation='gelu', #config.act-fun, #'sigmoid', 
              lr_mul=1,
              weight_scale=True,
              eps=1e-8
