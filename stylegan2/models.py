@@ -1139,7 +1139,7 @@ class Discriminator(_BaseAdverserialModel):
                         **conv_block_kwargs,
                         'features': self.channels[i],
                         'use_bias': True,
-                        'activation': self.activation,
+                        'activation': self.d_activation,
                         'bias_init': 0
                     }
                 )
@@ -1168,7 +1168,7 @@ class Discriminator(_BaseAdverserialModel):
         dense_layers = []
         in_features = self.channels[-1] * np.prod(self.base_shape)
         out_features = self.dense_hidden or self.channels[-1]
-        activation = self.activation
+        activation = self.d_activation
         for _ in range(2):
             dense_layers.append(
                 modules.BiasActivationWrapper(
