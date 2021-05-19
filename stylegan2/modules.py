@@ -38,7 +38,7 @@ def get_activation(activation):
     elif activation in ['prelu']:
         return nn.PReLU(), np.sqrt(2)
     elif activation in ['rrelu', 'randomrelu']:
-        return nn.RReLU(0.75, 0.8), np.sqrt(2)
+        return nn.RReLU(0.15, 0.2), np.sqrt(2)
     elif activation in ['selu']:
         return nn.SELU(), 1.
     elif activation in ['gelu']:

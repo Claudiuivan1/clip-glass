@@ -506,7 +506,8 @@ class _BaseParameterizedModel(_BaseModel):
     def __init__(self, **kwargs):
         super(_BaseParameterizedModel, self).__init__()
         self._update_default_kwargs(
-             activation='rrelu', #'lrelu:0.1', #config.act-fun, #'sigmoid', 
+             g_activation='rrelu', #'lrelu:0.1', #config.act-fun, #'sigmoid', 
+             d_activation='rrelu', #'lrelu:0.1', #config.act-fun, #'sigmoid', 
              lr_mul=1,
              weight_scale=True,
              eps=1e-8
@@ -579,7 +580,7 @@ class GeneratorMapping(_BaseParameterizedModel):
                     ),
                     features=out_features,
                     use_bias=True,
-                    activation=self.activation,
+                    activation=self.g_activation,
                     bias_init=0,
                     lr_mul=self.lr_mul,
                     weight_scale=self.weight_scale
@@ -794,7 +795,7 @@ class GeneratorSynthesis(_BaseAdverserialModel):
             up=True,
             num_layers=self.conv_block_size,
             filter=self.conv_filter,
-            activation=self.activation,
+            activation=self.g_activation,
             mode=self.conv_resample_mode,
             fused=self.fused_resample,
             kernel_size=self.kernel_size,
@@ -1057,7 +1058,7 @@ class Discriminator(_BaseAdverserialModel):
             down=True,
             num_layers=self.conv_block_size,
             filter=self.conv_filter,
-            activation=self.activation,
+            activation=self.d_activation,
             mode=self.conv_resample_mode,
             fused=self.fused_resample,
             kernel_size=self.kernel_size,
