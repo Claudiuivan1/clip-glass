@@ -12,7 +12,7 @@ import torch
 from torch.nn import Module
 import numpy as np
 
-class R_ReLU( nn.Module ):
+class R_ReLU( Module ):
     
     # define default bounds for random distribution
     lower_bound = 0
