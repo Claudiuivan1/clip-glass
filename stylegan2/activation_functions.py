@@ -5,12 +5,14 @@ from torch.nn.init import xavier_uniform_
 from torch.nn.init import constant_
 from torch.nn.init import xavier_normal_
 from torch.nn.parameter import Parameter
-from torch.nn import Module
+
 '''
 
+import torch
+from torch.nn import Module
 import numpy as np
 
-class R_ReLU( Module ):
+class R_ReLU( nn.Module ):
     
     # define default bounds for random distribution
     lower_bound = 0
