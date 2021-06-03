@@ -46,11 +46,11 @@ def get_activation(activation):
         return nn.RReLU(0.4, 0.6), np.sqrt(2)
     # our own RReLU -----------------------
     elif activation in ['r_relu']:
-        return R_ReLU(0.15, 0.25), np.sqrt(2)
+        return R_ReLU(0.1, 0.3), np.sqrt(2)
     #--------------------------------------
     # our own LReLU -----------------------
     elif activation in ['l_relu']:
-        return L_ReLU(0.15), np.sqrt(2)
+        return L_ReLU(0.2), np.sqrt(2)
     #--------------------------------------
     elif activation in ['selu']:
         return nn.SELU(), 1.
