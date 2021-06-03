@@ -506,8 +506,8 @@ class _BaseParameterizedModel(_BaseModel):
     def __init__(self, **kwargs):
         super(_BaseParameterizedModel, self).__init__()
         self._update_default_kwargs(
-             g_activation='r_relu', #'lrelu:0.1', #config.act-fun, #'sigmoid', 
-             d_activation='r_relu', #config.act-fun, #'sigmoid', 
+             g_activation='l_relu', #'lrelu:0.1', #config.act-fun, #'sigmoid', 
+             d_activation='l_relu', #config.act-fun, #'sigmoid', 
              lr_mul=1,
              weight_scale=True,
              eps=1e-8

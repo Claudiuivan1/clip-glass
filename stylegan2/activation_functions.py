@@ -1,13 +1,3 @@
-'''
-import torch
-from torch import Tensor
-from torch.nn.init import xavier_uniform_
-from torch.nn.init import constant_
-from torch.nn.init import xavier_normal_
-from torch.nn.parameter import Parameter
-
-'''
-
 import torch
 from torch import Tensor
 from torch.nn import Module
@@ -32,6 +22,26 @@ class R_ReLU( Module ):
         # apply RReLU
         x_pos = input
         x_neg = torch.mul( x_pos, a )
+        y = torch.where( x_pos > 0, x_pos, x_neg )
+        
+        return y
+        
+        
+class L_ReLU( Module ):
+    
+    # define negative slope
+    a = 0
+
+    # initialize class variables
+    def __init__( self, a = 0.1 ):
+        super( L_ReLU, self ).__init__()
+        self.a = a
+
+    # forward application method
+    def forward( self, input: Tensor ) -> Tensor:
+        # apply LReLU
+        x_pos = input
+        x_neg = torch.mul( x_pos, self.a )
         y = torch.where( x_pos > 0, x_pos, x_neg )
         
         return y
