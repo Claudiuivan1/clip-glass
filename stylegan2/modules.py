@@ -3,6 +3,8 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
+from .activation_functions import R_ReLU
+
 
 def get_activation(activation):
     """
@@ -39,8 +41,12 @@ def get_activation(activation):
         return nn.PReLU(), np.sqrt(2)
     elif activation in ['rrelu', 'randomrelu']:
         return nn.RReLU(0.15, 0.2), np.sqrt(2)
-    elif activation in ['rrelu2', 'randomrelu']:
+    elif activation in ['rrelu2']:
         return nn.RReLU(0.4, 0.6), np.sqrt(2)
+    # our own RReLU -----------------------
+    elif activation in ['r_relu']:
+        return R_ReLU(0.15, 0.25), np.sqrt(2)
+    #--------------------------------------
     elif activation in ['selu']:
         return nn.SELU(), 1.
     elif activation in ['gelu']:
