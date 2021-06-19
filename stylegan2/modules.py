@@ -5,6 +5,7 @@ from torch.nn import functional as F
 
 from .activation_functions import R_ReLU
 from .activation_functions import L_ReLU
+from .activation_functions import QL_ReLU
 
 
 def get_activation(activation):
