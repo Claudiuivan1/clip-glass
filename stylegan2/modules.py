@@ -52,6 +52,10 @@ def get_activation(activation):
     elif activation in ['l_relu']:
         return L_ReLU(0.2), np.sqrt(2)
     #--------------------------------------
+    # our own QLReLU -----------------------
+    elif activation in ['ql_relu']:
+        return QL_ReLU(0.2), np.sqrt(2)
+    #--------------------------------------
     elif activation in ['selu']:
         return nn.SELU(), 1.
     elif activation in ['gelu']:

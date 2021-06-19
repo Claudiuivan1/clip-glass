@@ -45,3 +45,23 @@ class L_ReLU( Module ):
         y = torch.where( x_pos > 0, x_pos, x_neg )
         
         return y
+        
+     
+class QL_ReLU( Module ):
+    
+    # define negative slope
+    a = 0
+
+    # initialize class variables
+    def __init__( self, a = 0.1 ):
+        super( QL_ReLU, self ).__init__()
+        self.a = a
+
+    # forward application method
+    def forward( self, input: Tensor ) -> Tensor:
+        x_pos = input
+        x_neg = torch.mul( x_pos, self.a )
+        x_pos = torch.square( x_pos )
+        y = torch.where( x_pos > 0, x_pos, x_neg )
+        
+        return y
