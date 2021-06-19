@@ -53,15 +53,16 @@ class QL_ReLU( Module ):
     a = 0
 
     # initialize class variables
-    def __init__( self, a = 0.1 ):
+    def __init__( self, a = 0.1, b = 0.9 ):
         super( QL_ReLU, self ).__init__()
         self.a = a
+        self.b = b
 
     # forward application method
     def forward( self, input: Tensor ) -> Tensor:
         x_pos = input
         x_neg = torch.mul( x_pos, self.a )
-        x_pos = torch.log( x_pos )
+        x_pos = torch.mul( x_pos, self.b )
         y = torch.where( x_pos > 0, x_pos, x_neg )
         
         return y
