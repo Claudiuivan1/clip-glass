@@ -59,7 +59,7 @@ def get_activation(activation):
         return BiL_ReLU(0.2, 0.9), np.sqrt(2)
     #--------------------------------------
     # our own BiRReLU -----------------------
-    elif activation in ['ql_relu']:
+    elif activation in ['bir_relu']:
         return BiR_ReLU(0.1, 0.3, 0.8, 1.0), np.sqrt(2)
     #--------------------------------------
     elif activation in ['selu']:
