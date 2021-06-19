@@ -61,7 +61,7 @@ class QL_ReLU( Module ):
     def forward( self, input: Tensor ) -> Tensor:
         x_pos = input
         x_neg = torch.mul( x_pos, self.a )
-        x_pos = torch.clamp( torch.square( x_pos ), max=10 )
+        x_pos = torch.log( x_pos )
         y = torch.where( x_pos > 0, x_pos, x_neg )
         
         return y
