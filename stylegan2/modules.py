@@ -5,7 +5,8 @@ from torch.nn import functional as F
 
 from .activation_functions import R_ReLU
 from .activation_functions import L_ReLU
-from .activation_functions import QL_ReLU
+from .activation_functions import BiL_ReLU
+from .activation_functions import BiR_ReLU
 
 
 def get_activation(activation):
@@ -53,9 +54,13 @@ def get_activation(activation):
     elif activation in ['l_relu']:
         return L_ReLU(0.2), np.sqrt(2)
     #--------------------------------------
-    # our own QLReLU -----------------------
+    # our own BiLReLU -----------------------
+    elif activation in ['bil_relu']:
+        return BiL_ReLU(0.2, 0.9), np.sqrt(2)
+    #--------------------------------------
+    # our own BiRReLU -----------------------
     elif activation in ['ql_relu']:
-        return QL_ReLU(0.2, 0.9), np.sqrt(2)
+        return BiR_ReLU(0.1, 0.3, 0.8, 1.0), np.sqrt(2)
     #--------------------------------------
     elif activation in ['selu']:
         return nn.SELU(), 1.
