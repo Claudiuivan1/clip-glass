@@ -60,7 +60,7 @@ def get_activation(activation):
     #--------------------------------------
     # our own BiRReLU -----------------------
     elif activation in ['bir_relu']:
-        return BiR_ReLU(0.1, 0.3, 0.8, 1.0), np.sqrt(2)
+        return BiR_ReLU(0.1, 0.3, 1.0, 1.2), np.sqrt(2)
     #--------------------------------------
     elif activation in ['selu']:
         return nn.SELU(), 1.
